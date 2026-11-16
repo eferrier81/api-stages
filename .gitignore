@@ -1,0 +1,19 @@
+# Bases SQLite (données locales, recréées au démarrage)
+*.db
+*.db-journal
+*.sqlite3
+
+# Caches Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Environnements virtuels
+.venv/
+venv/
+
+# PDF (énoncé, supports de cours)
+*.pdf
+
+# Variables d'environnement locales
+.env

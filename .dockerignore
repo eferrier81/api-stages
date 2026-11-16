@@ -1,0 +1,29 @@
+# Seuls app/ et requirements.txt sont nécessaires à l'image
+
+# Bases SQLite locales (l'image en recrée une au démarrage)
+*.db
+*.db-journal
+
+# Caches et environnements Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Documents
+*.pdf
+README.md
+captures/
+
+# Développement et tests
+tests/
+scripts/
+requirements-dev.txt
+pytest.ini
+
+# Git, configuration Render et secrets locaux
+.git
+.gitignore
+render.yaml
+.env

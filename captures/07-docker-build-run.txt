@@ -1,0 +1,70 @@
+$ docker build -t api-stages .
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 1.6s
+#3 [internal] load .dockerignore
+#3 DONE 0.0s
+#4 [1/6] FROM docker.io/library/python:3.11-slim@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535
+#4 DONE 0.0s
+#5 [internal] load build context
+#5 DONE 0.0s
+#6 [2/6] WORKDIR /app
+#6 CACHED
+#7 [3/6] COPY requirements.txt .
+#7 CACHED
+#8 [4/6] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+#9 [5/6] COPY app/ ./app/
+#9 CACHED
+#10 [6/6] RUN useradd --system --no-create-home appuser     && mkdir -p /app/data     && chown appuser:appuser /app/data
+#10 CACHED
+#11 writing image sha256:b8709682a5b8d158511a5e55dc3a3d63f1ca3ff43f3f70f9d7ae07ce656f3d6f done
+#11 naming to docker.io/library/api-stages done
+#11 DONE 0.0s
+(code de sortie : 0)
+
+$ docker run -d --name api-stages -e PORT=10000 -p 10000:10000 api-stages
+930ffdfcfca3909fd22a5bbac3737e74aa482b69a6e3e9fe09f2d6abd18d3e6d
+
+$ docker ps --filter name=api-stages
+IMAGE        STATUS         PORTS                                             NAMES
+api-stages   Up 4 seconds   0.0.0.0:10000->10000/tcp, [::]:10000->10000/tcp   api-stages
+
+$ docker images api-stages
+REPOSITORY   TAG       SIZE
+api-stages   latest    142MB
+
+$ python scripts/smoke_test.py http://localhost:10000
+Test de bout en bout de http://localhost:10000 (2026-11-16 15:53:54, marqueur smoke-759c278b)
+[OK]     1. GET /health -> 200 {"status": "ok"} (après 1 essai(s), 0 s)
+[OK]     2. POST /stages -> 201, stage créé avec l'id 4
+[OK]     3. GET /stages -> 200, 4 stage(s), contient le stage 4
+[OK]     4. GET /stages/4 -> 200, stage identique à celui créé
+[OK]     5. PUT /stages/4 -> 200, intitulé et date de fin modifiés (relus par GET)
+[OK]     6. DELETE /stages/4 -> 204, corps vide
+[OK]     7. GET /stages/4 -> 404 {"detail":"Stage introuvable"}
+[OK]     8. PUT /stages/4 (id inexistant) -> 404 {"detail":"Stage introuvable"}
+[OK]     9. DELETE /stages/4 (id inexistant) -> 404 {"detail":"Stage introuvable"}
+[OK]    10. POST /stages avec date de fin avant date de début -> 422
+Nettoyage : rien à supprimer
+Résultat : SUCCÈS, 10 étapes réussies.
+(code de sortie : 0)
+
+$ docker logs api-stages
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:10000 (Press CTRL+C to quit)
+INFO:     172.17.0.1:54166 - "GET /health HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54172 - "POST /stages HTTP/1.1" 201 Created
+INFO:     172.17.0.1:54186 - "GET /stages HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54192 - "GET /stages/4 HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54198 - "PUT /stages/4 HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54208 - "GET /stages/4 HTTP/1.1" 200 OK
+INFO:     172.17.0.1:54214 - "DELETE /stages/4 HTTP/1.1" 204 No Content
+INFO:     172.17.0.1:54226 - "GET /stages/4 HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:54242 - "PUT /stages/4 HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:54258 - "DELETE /stages/4 HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:54260 - "POST /stages HTTP/1.1" 422 Unprocessable Entity
+INFO:     172.17.0.1:54264 - "GET /stages HTTP/1.1" 200 OK
