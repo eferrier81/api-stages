@@ -10,9 +10,9 @@ Noms de fichiers fixés : le README les référence tels quels. Les captures 02 
 | [x] | `04-put-200.png` | modification | agent |
 | [x] | `05-delete-204.png` | suppression | agent |
 | [x] | `06-get-404.png` | stage inexistant | agent |
-| [ ] | `07-docker-build-run.png` | terminal : build et run | étudiant |
+| [x] | `07-docker-build-run.png` | terminal : build et run | étudiant |
 | [x] | `07-docker-build-run.txt` | sortie texte du build et du run | agent |
-| [ ] | `08-render-dashboard.png` | service Render : Docker, plan gratuit, « Live » | étudiant |
-| [ ] | `09-swagger-render.png` | `/docs` sur l'URL publique | agent |
-| [ ] | `10-get-stages-render.png` | `GET /stages` sur l'URL publique | agent |
-| [ ] | `11-smoke-render.txt` | sortie de `smoke_test.py` sur l'URL publique (CRUD complet à distance) | agent |
+| [x] | `08-render-dashboard.png` | service Render : Docker, plan gratuit, « Live » | étudiant |
+| [x] | `09-swagger-render.png` | `/docs` sur l'URL publique | agent |
+| [x] | `10-get-stages-render.png` | `GET /stages` sur l'URL publique | agent |
+| [x] | `11-smoke-render.txt` | sortie de `smoke_test.py` sur l'URL publique (CRUD complet à distance) | agent |

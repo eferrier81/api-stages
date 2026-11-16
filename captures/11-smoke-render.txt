@@ -1,0 +1,15 @@
+$ python scripts/smoke_test.py https://api-stages.onrender.com
+Test de bout en bout de https://api-stages.onrender.com (2026-11-16 16:08:12, marqueur smoke-f6d52055)
+[OK]     1. GET /health -> 200 {"status": "ok"} (après 1 essai(s), 0 s)
+[OK]     2. POST /stages -> 201, stage créé avec l'id 4
+[OK]     3. GET /stages -> 200, 4 stage(s), contient le stage 4
+[OK]     4. GET /stages/4 -> 200, stage identique à celui créé
+[OK]     5. PUT /stages/4 -> 200, intitulé et date de fin modifiés (relus par GET)
+[OK]     6. DELETE /stages/4 -> 204, corps vide
+[OK]     7. GET /stages/4 -> 404 {"detail":"Stage introuvable"}
+[OK]     8. PUT /stages/4 (id inexistant) -> 404 {"detail":"Stage introuvable"}
+[OK]     9. DELETE /stages/4 (id inexistant) -> 404 {"detail":"Stage introuvable"}
+[OK]    10. POST /stages avec date de fin avant date de début -> 422
+Nettoyage : rien à supprimer
+Résultat : SUCCÈS, 10 étapes réussies.
+(code de sortie : 0)

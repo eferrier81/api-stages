@@ -3,9 +3,8 @@
 Mini-projet du cours « Cloud Computing, Microservices & API ». API REST qui permet de créer, consulter, modifier et supprimer les stages des étudiants d'une école d'ingénieurs. Elle est écrite en Python avec FastAPI, stocke ses données dans SQLite, est conteneurisée avec Docker et déployée sur Render (plan gratuit).
 
 - **Groupe** : Enzo FERRIER, Ethan CABANES, Arthur PREVEL, Lucas LOPVET
-- **URL publique** : À COMPLÉTER
+- **URL publique** : https://api-stages.onrender.com (documentation Swagger : https://api-stages.onrender.com/docs)
 
-Dans la suite, `<URL publique>` désigne l'adresse ci-dessus.
 
 ## Endpoints
 
@@ -75,7 +74,7 @@ Le même appel avec `"date_fin": "2026-01-15"` (antérieure à `date_debut`) ren
 
 ### Documentation interactive
 
-- Swagger UI : `/docs` (en local : http://localhost:10000/docs, en ligne : `<URL publique>/docs`)
+- Swagger UI : `/docs` (en local : http://localhost:10000/docs, en ligne : https://api-stages.onrender.com/docs)
 - Schéma OpenAPI : `/openapi.json`
 
 ## Lancer le projet en local
@@ -98,7 +97,7 @@ Les tests demandés en partie 2 de l'énoncé ont été faits dans Swagger UI (`
 En complément :
 
 - Tests automatisés : `pip install -r requirements-dev.txt` puis `pytest`. Chaque test part d'une base temporaire contenant les 3 stages d'exemple.
-- Test de bout en bout contre une API qui tourne : `python scripts/smoke_test.py [BASE_URL]` (par défaut `http://localhost:10000`). Le script attend que `/health` réponde, enchaîne création, liste, lecture, modification, suppression, cas 404 et cas 422, affiche une ligne par étape et supprime ce qu'il a créé. Il s'utilise aussi contre l'API en ligne : `python scripts/smoke_test.py <URL publique>`.
+- Test de bout en bout contre une API qui tourne : `python scripts/smoke_test.py [BASE_URL]` (par défaut `http://localhost:10000`). Le script attend que `/health` réponde, enchaîne création, liste, lecture, modification, suppression, cas 404 et cas 422, affiche une ligne par étape et supprime ce qu'il a créé. Il s'utilise aussi contre l'API en ligne : `python scripts/smoke_test.py https://api-stages.onrender.com`.
 
 ## Lancer avec Docker
 
@@ -127,7 +126,7 @@ Déploiement manuel, selon les étapes de l'énoncé :
    - Health Check Path : `/health` (dans les réglages avancés)
 5. Lancer le déploiement.
 6. Récupérer l'URL publique de l'API (voir en haut de ce document).
-7. Tester les endpoints depuis un navigateur ou Postman, par exemple `<URL publique>/docs` et `<URL publique>/stages`.
+7. Tester les endpoints depuis un navigateur ou Postman, par exemple https://api-stages.onrender.com/docs et https://api-stages.onrender.com/stages.
 
 Le fichier `render.yaml` décrit le même service (Docker, plan gratuit, Frankfurt, `/health`). Il est facultatif : la création manuelle ci-dessus ne le lit pas.
 
@@ -167,7 +166,7 @@ Les captures 01 à 06 sont prises contre le conteneur local, 08 à 11 concernent
 
 ![Tableau de bord Render](captures/08-render-dashboard.png)
 
-**09 - Swagger UI sur l'URL publique (`<URL publique>/docs`)**
+**09 - Swagger UI sur l'URL publique (https://api-stages.onrender.com/docs)**
 
 ![Swagger UI Render](captures/09-swagger-render.png)
 
